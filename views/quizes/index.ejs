@@ -1,3 +1,12 @@
+<form class="form-horizontal" methods="get" action="/quizes">
+  <div class="form-group">
+    <div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-7">
+      <input type="text" name="search" id="search" class="form-control" value="<%= search %>" />
+    </div>
+    <button type="submit" class="btn btn-default col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-2">Filtrar</button>
+  </div>
+</form>
+
 <div class='col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2'>
   <ul class="list-group">
     <% quizes.forEach(function(quiz) { %>

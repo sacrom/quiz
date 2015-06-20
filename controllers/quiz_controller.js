@@ -33,8 +33,17 @@ exports.answer = function(req, res) {
 
 // GET /quizes
 exports.index = function(req, res) {
-	models.Quiz.findAll().then(function (quizes) {
-		res.render('quizes/index', {quizes: quizes});
-	});
+  if (req.query.search === undefined) {
+    models.Quiz.findAll({order: 'pregunta ASC'}).then(function (quizes) {
+      res.render('quizes/index', {quizes: quizes, search: ""});
+    });
+  }
+  else {
+    // Construir el patron de busqueda
+    var search = "%" + req.query.search.replace(" ", "%") + "%";
+    models.Quiz.findAll({where: ["pregunta like ?", search], order: 'pregunta ASC'}).then(function (quizes) {
+      res.render('quizes/index', {quizes: quizes, search: req.query.search});
+    });
+  }
 };
 

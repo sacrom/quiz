@@ -1,6 +1,12 @@
-<form methods="get" action="/quizes/answer">
-  Pregunta: <%= pregunta %><p>
-  <input type="text" name="respuesta" value="Respuesta" />
-  <input type="submit" value="Enviar" />
+<form class="form-horizontal" methods="get" action="/quizes/answer">
+  <div class="form-group">
+    <label for="respuesta" class="control-label col-xs-12 col-sm-6">Pregunta: <%= pregunta %></label>
+    <div class="col-xs-12 col-sm-6">
+      <input type="text" name="respuesta" id="respuesta" class="form-control" />
+    </div>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-default col-xs-12 col-sm-offset-6 col-sm-3">Enviar</button>
+  </div>
 </form>
 

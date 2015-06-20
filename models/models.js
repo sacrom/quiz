@@ -40,7 +40,12 @@ sequelize.sync().then(function() {
 				pregunta: 'Capital de Italia',
 				respuesta: 'Roma'
 			}).then(function() {
-				console.log('Tabla Quiz en BBDD incializada');
+				Quiz.create({
+					pregunta: 'Capital de Portugal',
+					respuesta: 'Lisboa'
+				}).then(function() {
+					console.log('Tabla Quiz en BBDD incializada');
+				});
 			});
 		}
 	});

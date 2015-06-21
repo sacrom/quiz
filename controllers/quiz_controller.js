@@ -40,7 +40,7 @@ exports.index = function(req, res) {
   }
   else {
     // Construir el patron de busqueda
-    var search = "%" + req.query.search.replace(" ", "%") + "%";
+    var search = "%" + req.query.search.replace(/ +/g, "%") + "%";
     models.Quiz.findAll({where: ["pregunta like ?", search], order: 'pregunta ASC'}).then(function (quizes) {
       res.render('quizes/index', {quizes: quizes, search: req.query.search});
     });

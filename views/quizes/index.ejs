@@ -1,4 +1,4 @@
-<form class="form-horizontal" methods="get" action="/quizes">
+<form class="form-horizontal" method="get" action="/quizes">
   <div class="form-group">
     <div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-7">
       <input type="text" name="search" id="search" class="form-control" value="<%= search %>" />
@@ -17,3 +17,5 @@
     <% }); %>
   </ul>
 </div>
+
+<a href="quizes/new" class="btn btn-default col-xs-12 col-sm-offset-4 col-sm-4">Crear pregunta</a>

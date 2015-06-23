@@ -79,3 +79,30 @@ exports.create = function(req, res) {
   });
 };
 
+// GET /quizes/:quizId/edit
+exports.edit = function(req, res) {
+  // Renderizar el formulario de edición de preguntas con el objeto auto-cargado
+  res.render('quizes/edit', {quiz: req.quiz});
+};
+
+// PUT /quizes/:quizId
+exports.update = function(req, res) {
+  // Actualiza el objeto auto-cargado con los datos del formulario
+  req.quiz.pregunta = req.body.quiz.pregunta;
+  req.quiz.respuesta = req.body.quiz.respuesta;
+
+  // Validar los datos en el modelo
+  req.quiz.validate().then(function(err) {
+    if (err) {
+      res.render('quizes/edit', {quiz: req.quiz, errors: err.errors});
+    }
+    else {
+      // Valida Ok: guardar los datos en la BBDD (solo los campos pregunta y respuesta)
+      req.quiz.save({fields: ["pregunta", "respuesta"]}).then(function() {
+        // Todo bien, redireccionar a la lista de preguntas
+        res.redirect('/quizes');
+      });
+    }
+  });
+};
+

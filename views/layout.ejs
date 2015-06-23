@@ -35,6 +35,18 @@
         </div>
       </nav>
 
+      <% if (locals.errors && locals.errors.length) { %>
+        <div class="container">
+          <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h3>Corregir errores:</h3>
+            <% errors.forEach(function(error) { %>
+              <%= error.message %><br/>
+            <% }); %>
+          </div>
+        </div>
+      <% } %>
+
       <section class="row">
           <%- body %>
       </section>

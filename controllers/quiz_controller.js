@@ -64,10 +64,18 @@ exports.create = function(req, res) {
   // Crea objeto quiz incializado con los datos recibidos del formulario
   var quiz = models.Quiz.build(req.body.quiz);
 
-  // Guardar los datos en la BBDD (solo los campos pregunta y respuesta)
-  quiz.save({fields: ["pregunta", "respuesta"]}).then(function() {
-    // Todo bien, redireccionar a la lista de preguntas
-    res.redirect('/quizes');
+  // Validar los datos en el modelo
+  quiz.validate().then(function(err) {
+    if (err) {
+      res.render('quizes/new', {quiz: quiz, errors: err.errors});
+    }
+    else {
+      // Valida Ok: guardar los datos en la BBDD (solo los campos pregunta y respuesta)
+      quiz.save({fields: ["pregunta", "respuesta"]}).then(function() {
+        // Todo bien, redireccionar a la lista de preguntas
+        res.redirect('/quizes');
+      });
+    }
   });
 };
 

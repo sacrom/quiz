@@ -106,3 +106,11 @@ exports.update = function(req, res) {
   });
 };
 
+// DELETE /quizes/:quizId
+exports.destroy = function(req, res) {
+  // Borrar el quiz auto-cargado
+  req.quiz.destroy().then(function() {
+    res.redirect('/quizes');
+  }).catch(function (err) {next(err)});
+};
+

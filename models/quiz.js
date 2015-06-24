@@ -1,8 +1,6 @@
 // Definición del Schema de la tabla Quiz
-
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('Quiz',
-				{
+	return sequelize.define('Quiz', {
           pregunta: {
             type: DataTypes.STRING,
             validate: { notEmpty: {msg: "Falta pregunta"}}
@@ -10,6 +8,10 @@ module.exports = function(sequelize, DataTypes) {
 				  respuesta: {
             type: DataTypes.STRING,
             validate: { notEmpty: {msg: "Falta respuesta"}}
+          },
+          tema: {
+            type: DataTypes.ENUM,
+            values: ['otro', 'humanidades', 'ocio', 'ciencia', 'tecnologia', 'geografia']
           }
         });
 };

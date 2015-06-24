@@ -52,11 +52,12 @@ exports.new = function(req, res) {
   // Crea objecto quiz incializado pero no "salvado" en la BBDD
   var quiz = models.Quiz.build({
     pregunta: "",
-    respuesta: ""
+    respuesta: "",
+    tema: "otro"
   });
 
   // Renderizar el formulario de creación de preguntas con el objeto incializado
-  res.render('quizes/new', {quiz: quiz});
+  res.render('quizes/new', {quiz: quiz, temas: models.Quiz.rawAttributes.tema.values});
 };
 
 // POST /quizes/create
@@ -67,11 +68,11 @@ exports.create = function(req, res) {
   // Validar los datos en el modelo
   quiz.validate().then(function(err) {
     if (err) {
-      res.render('quizes/new', {quiz: quiz, errors: err.errors});
+      res.render('quizes/new', {quiz: quiz, temas: models.Quiz.rawAttributes.tema.values, errors: err.errors});
     }
     else {
       // Valida Ok: guardar los datos en la BBDD (solo los campos pregunta y respuesta)
-      quiz.save({fields: ["pregunta", "respuesta"]}).then(function() {
+      quiz.save({fields: ["pregunta", "respuesta", "tema"]}).then(function() {
         // Todo bien, redireccionar a la lista de preguntas
         res.redirect('/quizes');
       });
@@ -82,7 +83,7 @@ exports.create = function(req, res) {
 // GET /quizes/:quizId/edit
 exports.edit = function(req, res) {
   // Renderizar el formulario de edición de preguntas con el objeto auto-cargado
-  res.render('quizes/edit', {quiz: req.quiz});
+  res.render('quizes/edit', {quiz: req.quiz, temas: models.Quiz.rawAttributes.tema.values});
 };
 
 // PUT /quizes/:quizId
@@ -90,15 +91,16 @@ exports.update = function(req, res) {
   // Actualiza el objeto auto-cargado con los datos del formulario
   req.quiz.pregunta = req.body.quiz.pregunta;
   req.quiz.respuesta = req.body.quiz.respuesta;
+  req.quiz.tema = req.body.quiz.tema;
 
   // Validar los datos en el modelo
   req.quiz.validate().then(function(err) {
     if (err) {
-      res.render('quizes/edit', {quiz: req.quiz, errors: err.errors});
+      res.render('quizes/edit', {quiz: req.quiz, temas: models.Quiz.rawAttributes.tema.values, errors: err.errors});
     }
     else {
       // Valida Ok: guardar los datos en la BBDD (solo los campos pregunta y respuesta)
-      req.quiz.save({fields: ["pregunta", "respuesta"]}).then(function() {
+      req.quiz.save({fields: ["pregunta", "respuesta", "tema"]}).then(function() {
         // Todo bien, redireccionar a la lista de preguntas
         res.redirect('/quizes');
       });

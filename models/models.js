@@ -38,11 +38,13 @@ sequelize.sync().then(function() {
 			// Tabla vacia. Inicializar!
 			Quiz.create({
 				pregunta: 'Capital de Italia',
-				respuesta: 'Roma'
+				respuesta: 'Roma',
+        tema: 'geografia'
 			}).then(function() {
 				Quiz.create({
 					pregunta: 'Capital de Portugal',
-					respuesta: 'Lisboa'
+					respuesta: 'Lisboa',
+          tema: 'geografia'
 				}).then(function() {
 					console.log('Tabla Quiz en BBDD incializada');
 				});

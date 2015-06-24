@@ -10,3 +10,17 @@
     <input type="text" name="quiz[respuesta]" id="respuesta" class="form-control" value="<%= quiz.respuesta %>"/>
   </div>
 </div>
+<div class="form-group">
+  <label for="tema" class="control-label col-xs-12 col-sm-3">Tema:</label>
+  <div class="col-xs-12 col-sm-9">
+    <select name="quiz[tema]" id="tema" class="form-control">
+      <% temas.forEach(function(tema) { %>
+        <% if (tema === quiz.tema) { %>
+          <option selected><%= tema %></option>
+        <% } else { %>
+          <option><%= tema %></option>
+        <% } %>
+      <% }); %>
+    </select>
+  </div>
+</div>

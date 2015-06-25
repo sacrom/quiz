@@ -10,7 +10,7 @@ $('#confirmDlg').on('show.bs.modal', function (e) {
   $(this).find('.modal-footer #confirm').data('form', form);
 });
 
-$('#confirm').find('.modal-footer #confirm').on('click', function(){
+$('#confirmDlg').find('.modal-footer #confirm').on('click', function(){
   $(this).data('form').submit();
 });
 

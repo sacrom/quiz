@@ -25,7 +25,12 @@ exports.create = function(req, res) {
     req.session.user = {id: user.id, username: user.username};
 
     // Redireccionar al ultimo sitio guardado
-    res.redirect(req.session.redir.toString());
+    if (req.session.redir) {
+      res.redirect(req.session.redir.toString());
+    }
+    else {
+      res.redirect('/');
+    }
   });
 };
 
@@ -34,6 +39,11 @@ exports.destroy = function(req, res) {
   delete req.session.user;
 
   // Redireccionar al ultimo sitio guardado
-  res.redirect(req.session.redir.toString());
+  if (req.session.redir) {
+    res.redirect(req.session.redir.toString());
+  }
+  else {
+    res.redirect('/');
+  }
 };
 

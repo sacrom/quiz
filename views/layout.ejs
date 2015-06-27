@@ -12,7 +12,14 @@
   <body>
     <div id="container">
       <header class="jumbotron text-center">
-        <h2>Quiz<span class="hidden-xs">: el juego de las preguntas</span></h2>
+        <h2>Quiz<span class="hidden-xs">: el juego de las preguntas</span><small class="pull-right">
+        <% if (!session.user) { %>
+          <a class="btn btn-default control-form" style="margin: 20px" href="/login" role="button">Login</a>
+        <% } else { %>
+          <%= session.user.username %>
+          <a class="btn btn-default" href="/logout" style="margin: 20px" role="button">Logout</a>
+        <% } %>
+        </small></h2>
       </header>
 
       <nav class="navbar navbar-default navbar-static-top" role="navigation">

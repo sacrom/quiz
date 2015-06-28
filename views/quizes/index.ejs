@@ -14,18 +14,22 @@
         <form method="post" class="form-horizontal" action="/quizes/<%= quiz.id %>?_method=delete">
           <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> 
           <a href="/quizes/<%= quiz.id %>"><%= quiz.pregunta %> (<%= quiz.tema %>)</a>
-          <span class="pull-right btn-toolbar">
-            <button type="button" class="pull-right btn btn-xs btn-default text-danger" data-toggle="modal" data-target="#confirmDlg" data-title="Borrar pregunta '<%= quiz.pregunta %>'" data-message='¿Estás seguro?' data-btn-class='btn-danger'>
-              <span class="glyphicon glyphicon-trash"></span>
-            </button>
-            <a href="/quizes/<%= quiz.id %>/edit" class="pull-right btn btn-xs btn-default text-success">
-              <span class="glyphicon glyphicon-pencil"></span>
-            </a>
-          </span>
+          <% if (session.user) { %>
+            <span class="pull-right btn-toolbar">
+              <a href="/quizes/<%= quiz.id %>/edit" class="btn btn-xs btn-default text-success">
+                <span class="glyphicon glyphicon-pencil"></span>
+              </a>
+              <button type="button" class="btn btn-xs btn-default text-danger" data-toggle="modal" data-target="#confirmDlg" data-title="Borrar pregunta '<%= quiz.pregunta %>'" data-message='¿Estás seguro?' data-btn-class='btn-danger'>
+                <span class="glyphicon glyphicon-trash"></span>
+              </button>
+            </span>
+          <% } %>
         </form>
       </li>
     <% }); %>
   </ul>
 </div>
 
-<a href="quizes/new" class="btn btn-default col-xs-12 col-sm-offset-4 col-sm-4">Crear pregunta</a>
+<% if (session.user) { %>
+  <a href="quizes/new" class="btn btn-default col-xs-12 col-sm-offset-4 col-sm-4">Crear pregunta</a>
+<% } %>

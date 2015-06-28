@@ -19,16 +19,27 @@
       </h4>
     <% } else { %>
       <h4 class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-4">
-        Hay <%= quiz.Comments.length %> comentario(s):
+        <% if (session.user) { %>
+          Hay <%= quiz.Comments.length %> comentario(s):
+        <% } else { %>
+          Comentario(s):
+        <% } %>
       </h4>
     <% } %>
     <a href="/quizes/<%= quiz.id %>/comments/new" class="btn btn-info col-xs-12 col-sm-2">Nuevo comentario</a>
   </div>
   <ul class="list-group">
     <% quiz.Comments.forEach(function (comment) { %>
-      <li class="list-group-item col-xs-12 col-sm-9 col-sm-offset-3">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> <%= comment.texto %>
-      </li>
+      <% if (comment.publicado || session.user) { %>
+        <li class="list-group-item col-xs-12 col-sm-9 col-sm-offset-3">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> <%= comment.texto %>
+          <% if (!comment.publicado) { %>
+            <a href="/quizes/<%= quiz.id %>/comments/<%= comment.id %>/publish" class="btn btn-success btn-xs pull-right">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </a>
+          <% } %>
+        </li>
+      <% } %>
     <% }); %>
   </ul>
 </div>

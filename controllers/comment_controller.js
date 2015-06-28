@@ -1,5 +1,24 @@
 var models = require("../models/models");
 
+// Autoload de :commentId
+exports.load = function(req, res, next, commentId) {
+  models.Comment.find({
+    where: {
+      id: Number(commentId)
+    }
+  }).then(function(comment) {
+    if (comment) {
+      req.comment = comment;
+      next();
+    }
+    else {
+      next(new Error('No existe commentId=' + commentId));
+    }
+  }).catch(function(err) {
+    next(err);
+  });
+};
+
 // GET /quizes/:quizId/comments/new
 exports.new = function(req, res) {
   var comment = models.Comment.build({
@@ -31,5 +50,16 @@ exports.create = function(req, res) {
       });
     }
   }).catch(function (err) {next(err);});
+};
+
+// GET /quizes/:quizId/comments/:commentId/publish
+exports.publish = function(req, res) {
+  req.comment.publicado = true;
+
+  req.comment.save({fields: ["publicado"]}).then(function() {
+    res.redirect('/quizes/'+req.quiz.id);
+  }).catch(function(err) {
+    next(err);
+  });
 };
 

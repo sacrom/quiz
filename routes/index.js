@@ -10,8 +10,9 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Quiz' });
 });
 
-// Autoload de los comandos con :quizId
+// Autoload de los comandos con :quizId y :commentId
 router.param('quizId', quizController.load);
+router.param('commentId', commentController.load);
 
 // Rutas de sesion
 router.get('/login', sessionController.new);
@@ -33,6 +34,7 @@ router.delete('/quizes/:quizId(\\d+)', sessionController.loginRequired, quizCont
 // Rutas /quizes/:quizId/comments/* a commentController
 router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
 router.post('/quizes/:quizId(\\d+)/comments', commentController.create);
+router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', sessionController.loginRequired, commentController.publish);
 
 // Ruta a los créditos
 router.get('/author', function(req, res) {

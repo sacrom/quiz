@@ -35,6 +35,21 @@ app.use(function (req, res, next) {
     req.session.redir = req.path;
   }
 
+  // Auto-logout de la session si han pasado mas de dos minutos
+  if (req.session && req.session.user) {
+    // Recoger los milisegundos desde 1/1/1970
+    var tiempo = new Date().getTime();
+
+    // Comprobamos si han pasado dos minutos.
+    if (req.session.user.tiempo && (tiempo - req.session.user.tiempo) > 120000) {
+      req.session.user.tiempo = tiempo;
+      res.redirect('/logout');
+      return;
+    }
+    // Guardar el nuevo tiempo
+    req.session.user.tiempo = tiempo;
+  }
+
   // Hacer visible req.session en las vistas
   res.locals.session = req.session;
   next();

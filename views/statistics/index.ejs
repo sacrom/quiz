@@ -1,0 +1,24 @@
+<div class='col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2'>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <span class="glyphicon glyphicon-stats" aria-hidden="true">&nbsp;</span> 
+      Número de preguntas: <%= numQuiz %>
+    </li>
+    <li class="list-group-item">
+      <span class="glyphicon glyphicon-stats" aria-hidden="true">&nbsp;</span> 
+      Número de comentarios: <%= numComments %>
+    </li>
+    <li class="list-group-item">
+      <span class="glyphicon glyphicon-stats" aria-hidden="true">&nbsp;</span> 
+      Cometarios por pregunta: <%= numComments/numQuiz %>
+    </li>
+    <li class="list-group-item">
+      <span class="glyphicon glyphicon-stats" aria-hidden="true">&nbsp;</span> 
+      Preguntas sin comentarios: <%= numQuizNoComments %>
+    </li>
+    <li class="list-group-item">
+      <span class="glyphicon glyphicon-stats" aria-hidden="true">&nbsp;</span> 
+      Preguntas con comentarios: <%= numQuiz-numQuizNoComments %>
+    </li>
+  </ul>
+</div>
